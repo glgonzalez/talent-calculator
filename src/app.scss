@@ -1,0 +1,57 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url('./images/talent-calc-bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 16px;
+  max-width: 100%;
+  height: -webkit-fill-available;
+
+  .talent-calculator-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    width: 100%;
+
+    .title {
+      color: #ffffff;
+      padding: 5px;
+      background-color: #31313173;
+      width: 100%;
+      text-align: center;
+      font-weight: 400;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    height: auto;
+    padding: 16px;
+
+    .talent-calculator-container {
+      border: .05px solid rgb(43, 43, 43);
+      width: auto;
+      padding: 16px;
+
+      .title {
+        margin-bottom: 0;
+      }
+
+      .container {
+        flex-direction: row;
+      }
+    }
+  }
+  
+}

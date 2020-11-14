@@ -1,0 +1,51 @@
+.talent-paths-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  width: 100%;
+
+  .path-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 64px;
+
+    .path-label {
+      color: rgb(161, 161, 161);
+      text-transform: uppercase;  
+      margin-bottom: 16px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .path {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      overflow-x: auto;
+      width: 100%;
+      padding: 5px;
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    padding-top: 64px;
+
+    .path-container {
+      flex-direction: row;
+      justify-content: flex-start;
+
+      .path-label {
+        margin-bottom: 0;
+        margin-right: 32px;
+      }
+
+      .path {
+        overflow: auto;
+        width: auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+.points-container {
+  display: flex;
+
+  .points {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    max-width: 100%;
+    font-size: 24px;
+    background-color: #080a0c;
+    padding: 16px 32px;
+    border: .05px solid rgb(43, 43, 43);
+
+    .points-label {
+      color: rgb(112, 188, 250);
+      opacity: .4;
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    padding: 64px;
+
+    .points {
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+$icons: 'chevrons', 'silverware', 'cake', 'crown', 'boat', 'snorkle', 'lightning', 'skull';
+$i: 0;
+$position-increment: 50;
+
+.talent-icon {
+  background-image: url('./talent-icons-sprite.png');
+  height: 50px;
+  width: 50px;
+  background-position-y: -50px;
+
+  &:hover {
+    cursor: pointer;
+    background-position-y: 0;
+  }
+
+  &.not-allowed {
+    cursor: not-allowed;
+    background-position-y: -50px;
+  }
+
+  &.selected {
+    background-position-y: 0px;
+  }
+}
+
+@each $icon in $icons {
+  $position: ($position-increment * $i);
+  $i: $i + 1;
+  .#{$icon} {
+    background-position-x: -#{$position}px;
+  }
+}
