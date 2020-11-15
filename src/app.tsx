@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, FC, useEffect } from 'react';
 import { pathData, Path } from './data';
 import { Paths, Points, PointsProvider } from './components';
 import './app.scss';
@@ -22,3 +22,5 @@ export const App = () => {
     </PointsProvider>
   );
 }
+
+const TalentSelectContext = createContext(null as any);
