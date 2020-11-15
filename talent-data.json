@@ -1,0 +1,60 @@
+[
+  {
+    "items": [
+      {
+        "id": 1,
+        "name": "chevrons",
+        "value": 1,
+        "path": "Talent Path 1"
+      },
+      {
+        "id": 2,
+        "name": "silverware",
+        "value": 1,
+        "path": "Talent Path 1"
+      },
+      {
+        "id": 3,
+        "name": "cake",
+        "value": 1,
+        "path": "Talent Path 1"
+      },
+      {
+        "id": 4,
+        "name": "crown",
+        "value": 1,
+        "path": "Talent Path 1"
+      }
+    ],
+    "name": "Talent Path 1"
+  },
+  {
+    "items": [
+      {
+        "id": 5,
+        "name": "boat",
+        "value": 1,
+        "path": "Talent Path 1"
+      },
+      {
+        "id": 6,
+        "name": "snorkle",
+        "value": 1,
+        "path": "Talent Path 1"
+      },
+      {
+        "id": 7,
+        "name": "lightning",
+        "value": 1,
+        "path": "Talent Path 1"
+      },
+      {
+        "id": 8,
+        "name": "skull",
+        "value": 1,
+        "path": "Talent Path 1"
+      }
+    ],
+    "name": "Talent Path 2"
+  }
+]

@@ -11,6 +11,6 @@ export type Talents =
   | 'lightning' 
   | 'skull';
 
-export const NewTalentIcon: FC<{type: Talents; notAllowed: boolean; selected: boolean}> = ({type, notAllowed, selected }) => {
-  return <div className={`talent-icon ${type} ${notAllowed && !selected ? 'not-allowed' : ''} ${selected ? 'selected' : ''}`} />;
+export const NewTalentIcon: FC<{type: Talents; notAllowed: boolean; selected?: boolean}> = ({type, notAllowed, selected }) => {
+  return <div className={`talent-icon ${type}${notAllowed && !selected ? ' not-allowed' : ''} ${selected ? 'selected' : ''}`} />;
 }

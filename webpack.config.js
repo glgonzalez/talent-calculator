@@ -52,6 +52,9 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, '/dist'),
     liveReload: true,
-    open: true
+    open: true,
+    proxy: {
+      "/": "http://localhost:3000"
+    }
   }
 };
