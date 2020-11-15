@@ -1,6 +1,7 @@
 import React, { FC, MouseEvent } from 'react';
 import { TalentItem } from '../../data';
 import { Talents, NewTalentIcon } from '../../images';
+import { useTouchEventHanler } from '../../touch-event-handler';
 import { usePointsContext } from '../points';
 import { usePathContext, ActionTypes } from './path-context';
 import './styles/talent.scss';
@@ -43,6 +44,7 @@ export const Talent: FC<{
 }> = ({ talentItem, last, index, talents }) => {
   const { state, dispatch } = usePathContext();
   const { spent, total, setSpent } = usePointsContext();
+  const { isTouchEvent } = useTouchEventHanler();
 
   // Determine if the talent is selected
   const isSelected = (itemName: Talents) => {
@@ -63,8 +65,7 @@ export const Talent: FC<{
     }
   }
 
-  const remove = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const remove = () => {
     const points = spent - getPoints(index, ActionTypes.REMOVE, state.selected);
     if(spent > 0 && points >= 0) {
       if(isSelected(talentItem.name)) {
@@ -77,13 +78,32 @@ export const Talent: FC<{
     }
   }
 
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    switch(event.button) {
+      case 0:
+        if(isSelected(talentItem.name) && isTouchEvent) {
+          remove();
+          break;
+        }
+        add();
+        break;
+      case 2:
+        remove();
+        break;
+      default:
+        break;
+    }
+  }
+
   return (
     <div className="talent-container">
       <div className={`gradient ${isSelected(talentItem.name) ? 'selected' : ''}`}>
         <button 
           className={`talent ${isSelected(talentItem.name) ? 'selected' : ''}`}
-          onClick={add}
-          onContextMenu={remove}>
+          onClick={handleClick}
+          onContextMenu={handleClick}
+        >
           <NewTalentIcon type={talentItem.name} notAllowed={spent === total} selected={isSelected(talentItem.name)} />
         </button>
       </div>

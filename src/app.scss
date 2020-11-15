@@ -5,11 +5,11 @@
   background-image: url('./images/talent-calc-bg.png');
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 16px;
+  padding: 0 16px;
   max-width: 100%;
   height: -webkit-fill-available;
 
-  .talent-calculator-container {
+  .talent-calculator {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -35,11 +35,11 @@
     }
   }
 
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 800px) {
     height: auto;
     padding: 16px;
 
-    .talent-calculator-container {
+    .talent-calculator {
       border: .05px solid rgb(43, 43, 43);
       width: auto;
       padding: 16px;

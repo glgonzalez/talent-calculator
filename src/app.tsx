@@ -1,26 +1,23 @@
-import React, { createContext, FC, useEffect } from 'react';
-import { pathData, Path } from './data';
+import React from 'react';
 import { Paths, Points, PointsProvider } from './components';
+import { TouchEventHandlerProvider} from './touch-event-handler';
 import './app.scss';
-
-export const useGetPaths = (): Path[]  => {
-  return pathData;
-}
 
 export const App = () => {
   return (
-    <PointsProvider>
-      <div className="app-container">
-        <div className="talent-calculator-container">
-          <h2 className="title">TitanStar Legends - Rune Mastery Loadout Talent Calculator 9000</h2>
-          <div className="container">
-            <Paths />
-            <Points />
+    <TouchEventHandlerProvider>
+      <PointsProvider>
+        <div className="app-container">
+          <div className="talent-calculator">
+            <h2 className="title">TitanStar Legends - Rune Mastery Loadout Talent Calculator 9000</h2>
+            <div className="container">
+              <Paths />
+              <Points />
+            </div>
           </div>
         </div>
-      </div>
-    </PointsProvider>
+      </PointsProvider>
+    </TouchEventHandlerProvider>
   );
 }
 
-const TalentSelectContext = createContext(null as any);

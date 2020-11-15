@@ -1,16 +1,22 @@
-.talent-paths-container {
+.talent-path-container {
   display: flex;
   flex-direction: column;
   flex: 1;
   justify-content: center;
   width: 100%;
 
-  .path-container {
+  .talent-path {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 64px;
+    margin-bottom: 48px;
+
+    .scroll-label {
+      color: rgb(161, 161, 161);
+      padding-bottom: 5px;
+      font-style: italic;
+    }
 
     .path-label {
       color: rgb(161, 161, 161);
@@ -31,11 +37,20 @@
   }
 
   @media screen and (min-width: 600px) {
+    align-items: center;
+  }
+
+  @media screen and (min-width: 800px) {
     padding-top: 64px;
 
-    .path-container {
+    .talent-path {
       flex-direction: row;
       justify-content: flex-start;
+      padding-bottom: 64px;
+
+      .scroll-label {
+        display: none;
+      }
 
       .path-label {
         margin-bottom: 0;
