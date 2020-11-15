@@ -1,14 +1,10 @@
 import React, { FC, useEffect, useState } from 'react';
-import { TalentItem } from '../../data';
-import { PathProvider } from './path-context';
+import { TalentItem } from './talent';
+import { TalentPathProvider, useTalentPathContext } from './new-path-context';
 import { Talent } from './talent';
 import './styles/paths.scss';
 
-interface PathProps {
-  talents: TalentItem[]
-}
-
-interface Path {
+export interface Path {
   items: TalentItem[];
   name: string;
 }
@@ -27,19 +23,13 @@ export const Paths: FC = () => {
   return (
     <div className="talent-path-container">
       {paths && paths.map((p) => {
-
-        const contextData = {
-          selected: [],
-          remaining: p.items
-        };
-
         return (
           <div className="talent-path" key={p.name}>
             <div className="scroll-label">(Swipe to see more talents)</div>
             <div className="path-label">{p.name}</div>
-            <PathProvider data={contextData}>
-              <TalentPath talents={p.items} />
-            </PathProvider>
+            <TalentPathProvider data={p.items}>
+              <TalentPath />
+            </TalentPathProvider>
           </div>
         );[]
       })}
@@ -47,17 +37,17 @@ export const Paths: FC = () => {
   );
 }
 
-const TalentPath: FC<PathProps> = ({talents}) => {
+const TalentPath: FC = () => {
+  const { state } = useTalentPathContext();
   return (
     <div className="path">
-      {talents.map((talent, index, talents) => {
+      {state.map((talent, index, talents) => {
         return (
           <Talent 
             talentItem={talent}
             index={index} 
             last={index === talents.length - 1} 
-            key={index}
-            talents={talents} />
+            key={index} />
         );
       })}
     </div>

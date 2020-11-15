@@ -6,10 +6,6 @@ export enum ActionTypes {
   REMOVE = 'REMOVE'
 }
 
-interface Talent extends TalentItem {
-  selected?: boolean;
-}
-
 export interface PathData {
   selected: TalentItem[];
   remaining: TalentItem[];
