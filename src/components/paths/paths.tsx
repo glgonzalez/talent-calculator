@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { TalentItem } from './talent';
-import { TalentPathProvider, useTalentPathContext } from './new-path-context';
+import { TalentPathProvider, useTalentPathContext } from './talent-path-context';
 import { Talent } from './talent';
 import './styles/paths.scss';
 
@@ -13,7 +13,7 @@ export const Paths: FC = () => {
   const [paths, setPaths] = useState<Path[]>();
 
   useEffect(() => {
-    fetch('/api/talent-paths').then(async response => {
+    fetch('/api/v1/talent-paths').then(async response => {
       return await response.json();
     }).then(async data => {
       setPaths(await data);

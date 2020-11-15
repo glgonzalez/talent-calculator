@@ -2,8 +2,7 @@ import React, { FC, MouseEvent } from 'react';
 import { Talents, NewTalentIcon } from '../../images';
 import { useTouchEventHanler } from '../../touch-event-handler';
 import { usePointsContext } from '../points';
-import { ActionTypes } from './path-context';
-import { TalentType, useTalentPathContext } from './new-path-context';
+import { ActionTypes, TalentType, useTalentPathContext } from './talent-path-context';
 import './styles/talent.scss';
 
 export interface TalentItem {
