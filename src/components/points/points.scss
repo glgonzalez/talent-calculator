@@ -9,13 +9,19 @@
     color: #ffffff;
     max-width: 100%;
     font-size: 24px;
-    background-color: #080a0c;
+    background-color: rgb(8, 10, 12);
     padding: 16px 32px;
     border: .05px solid rgb(43, 43, 43);
 
     .points-label {
       color: rgb(112, 188, 250);
       opacity: .4;
+    }
+
+    .error {
+      color: red;
+      font-weight: 700;
+      font-size: 16px;
     }
   }
 

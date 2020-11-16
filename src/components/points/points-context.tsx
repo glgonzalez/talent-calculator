@@ -1,13 +1,13 @@
 import React, { useState, createContext, useContext, useMemo, FC } from 'react';
 
-interface PointsContext {
+interface Context {
   spent: number;
   setSpent: (value: number) => void;
   total: number;
   setTotal: (value: number) => void;
 }
 
-const Context = createContext<PointsContext>(null as any);
+export const PointsContext = createContext<Context>(null as any);
 
 export const PointsProvider: FC = ({children}) => {
   const [spent, setSpent] = useState<number>(0);
@@ -22,7 +22,7 @@ export const PointsProvider: FC = ({children}) => {
     };
   }, [spent, total]);
 
-  return <Context.Provider value={pointsContext} children={children} />;
+  return <PointsContext.Provider value={pointsContext} children={children} />;
 }
 
-export const usePointsContext = () => useContext(Context);
+export const usePointsContext = () => useContext(PointsContext);

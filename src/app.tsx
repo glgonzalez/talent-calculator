@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Paths, Points, PointsProvider } from './components';
 import { TouchEventHandlerProvider} from './touch-event-handler';
 import './app.scss';
@@ -11,7 +11,9 @@ export const App = () => {
           <div className="talent-calculator">
             <h2 className="title">TitanStar Legends - Rune Mastery Loadout Talent Calculator 9000</h2>
             <div className="container">
-              <Paths />
+              <Suspense fallback={() => <h1 className="loading">Loading...</h1>}>
+                <Paths />
+              </Suspense>
               <Points />
             </div>
           </div>

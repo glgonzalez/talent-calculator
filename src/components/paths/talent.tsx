@@ -1,5 +1,5 @@
-import React, { FC, MouseEvent } from 'react';
-import { Talents, NewTalentIcon } from '../../images';
+import React, { FC, MouseEvent, useEffect, useState } from 'react';
+import { Talents, NewTalentIcon } from '../talent-icons';
 import { useTouchEventHanler } from '../../touch-event-handler';
 import { usePointsContext } from '../points';
 import { ActionTypes, TalentType, useTalentPathContext } from './talent-path-context';
@@ -24,6 +24,13 @@ export const Talent: FC<{
   const { state, dispatch } = useTalentPathContext();
   const { spent, total, setSpent } = usePointsContext();
   const { isTouchEvent } = useTouchEventHanler();
+  const [error, setError] = useState<string>();
+
+  useEffect(() => {
+    if(error) {
+      throw new Error(error);
+    }
+  }, [error]);
 
   const getPotentialPoints = (talents: TalentType[], idx: number, action: ActionTypes) => {
     let points = 0;
@@ -56,6 +63,10 @@ export const Talent: FC<{
           index
         }
       });
+    } 
+
+    if( pointsToSpend > total) {
+      setError('Not Enough Points');
     }
   };
 
@@ -72,7 +83,7 @@ export const Talent: FC<{
     }
   };
 
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleClick = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     switch(event.button) {
       case 0:
