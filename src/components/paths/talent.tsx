@@ -1,5 +1,5 @@
 import React, { FC, MouseEvent, useEffect, useState } from 'react';
-import { Talents, NewTalentIcon } from '../talent-icons';
+import { Talents, TalentIcon } from '../talent-icons';
 import { useTouchEventHanler } from '../../touch-event-handler';
 import { usePointsContext } from '../points';
 import { ActionTypes, TalentType, useTalentPathContext } from './talent-path-context';
@@ -109,7 +109,7 @@ export const Talent: FC<{
           onClick={handleClick}
           onContextMenu={handleClick}
         >
-          <NewTalentIcon type={talentItem.name} notAllowed={spent === total} selected={talentItem.selected} />
+          <TalentIcon type={talentItem.name} notAllowed={spent === total} selected={talentItem.selected} />
         </button>
       </div>
       <div className={`divider${last ? ' last': ''}${talentItem.selected ? ' selected' : ''}`}/>
