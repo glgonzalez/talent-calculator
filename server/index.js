@@ -5,8 +5,7 @@ const fs = require('fs');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/api/talent-paths', (req, res) => {
-  let data;
+app.get('/api/v1/talent-paths', (req, res) => {
   fs.readFile('talent-data.json', 'utf8', (err, response) => {
     if(err) {
       throw new Error(err)

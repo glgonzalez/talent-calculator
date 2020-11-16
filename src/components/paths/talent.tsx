@@ -1,35 +1,15 @@
 import React, { FC, MouseEvent } from 'react';
-import { TalentItem } from '../../data';
 import { Talents, NewTalentIcon } from '../../images';
 import { useTouchEventHanler } from '../../touch-event-handler';
 import { usePointsContext } from '../points';
-import { usePathContext, ActionTypes } from './path-context';
+import { ActionTypes, TalentType, useTalentPathContext } from './talent-path-context';
 import './styles/talent.scss';
 
-  //////////////////////
- // Helper functions //
-//////////////////////
-
-const getPoints = (index: number, action: ActionTypes, arr: TalentItem[]) => {
-  let points = 0;
-  let newArr = [];
-  if(action === ActionTypes.ADD) {
-    newArr = [...arr.slice(0, index)];
-  } else {
-    newArr = [...arr.slice(index, arr.length)]
-  }
-  newArr.forEach(n => points += n.value);
-  return points;
-}
-
-const getIndex = (tal: TalentItem[], rem: TalentItem[], currentIndex: number) => {
-  let newIndex = currentIndex;
-  rem.forEach((r, i) => {
-    if(r.name === tal[currentIndex].name) {
-      newIndex = i;
-    }
-  });
-  return newIndex;
+export interface TalentItem {
+  id: string,
+  name: Talents;
+  value: number;
+  path: string;
 }
  
   //////////////////////////////////////////
@@ -37,52 +17,66 @@ const getIndex = (tal: TalentItem[], rem: TalentItem[], currentIndex: number) =>
 //////////////////////////////////////////
 
 export const Talent: FC<{
-  talentItem: TalentItem; 
+  talentItem: TalentType; 
   last: boolean;
   index: number;
-  talents: TalentItem[];
-}> = ({ talentItem, last, index, talents }) => {
-  const { state, dispatch } = usePathContext();
+}> = ({ talentItem, last, index }) => {
+  const { state, dispatch } = useTalentPathContext();
   const { spent, total, setSpent } = usePointsContext();
   const { isTouchEvent } = useTouchEventHanler();
 
-  // Determine if the talent is selected
-  const isSelected = (itemName: Talents) => {
-    return state.selected.some(s => s.name === itemName);
+  const getPotentialPoints = (talents: TalentType[], idx: number, action: ActionTypes) => {
+    let points = 0;
+    talents.forEach((talent, talentIndex) => {
+      switch(action) {
+        case ActionTypes.ADD:
+          if(!talent.selected && talentIndex <= idx) {
+            points+= talent.value;
+          }
+          break;
+        case ActionTypes.REMOVE:
+          if(talent.selected && talentIndex >= idx) {
+            points += talent.value;
+          }
+          break;
+        default:
+          break;
+      }
+    });
+    return points;
   }
 
   const add = () => {
-    const newIndex = getIndex(talents, state.remaining, index) + 1;
-    const points = spent + getPoints(newIndex, ActionTypes.ADD, state.remaining);
-    if(spent < total && points <= total) {
-      if(!isSelected(talentItem.name)) {
-        setSpent(points);
-        dispatch({
-          type: ActionTypes.ADD,
-          payload: {index: getIndex(talents, state.remaining, index) }
-        });
-      }
+    const pointsToSpend = spent + getPotentialPoints(state, index, ActionTypes.ADD);
+    if(spent < total && !talentItem.selected && pointsToSpend <= total) {
+      setSpent(pointsToSpend);
+      dispatch({
+        type: ActionTypes.ADD,
+        payload: {
+          index
+        }
+      });
     }
-  }
+  };
 
   const remove = () => {
-    const points = spent - getPoints(index, ActionTypes.REMOVE, state.selected);
-    if(spent > 0 && points >= 0) {
-      if(isSelected(talentItem.name)) {
-        setSpent(points);
-        dispatch({
-          type: ActionTypes.REMOVE,
-          payload: {index}
-        });
-      }
+    const pointsToRemove = spent - getPotentialPoints(state, index, ActionTypes.REMOVE);
+    if(spent > 0 && talentItem.selected && pointsToRemove >= 0) {
+      setSpent(pointsToRemove);
+      dispatch({
+        type: ActionTypes.REMOVE,
+        payload: {
+          index
+        }
+      });
     }
-  }
+  };
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     switch(event.button) {
       case 0:
-        if(isSelected(talentItem.name) && isTouchEvent) {
+        if(talentItem.selected && isTouchEvent) {
           remove();
           break;
         }
@@ -98,16 +92,16 @@ export const Talent: FC<{
 
   return (
     <div className="talent-container">
-      <div className={`gradient ${isSelected(talentItem.name) ? 'selected' : ''}`}>
+      <div className={`gradient ${talentItem.selected ? 'selected' : ''}`}>
         <button 
-          className={`talent ${isSelected(talentItem.name) ? 'selected' : ''}`}
+          className={`talent ${talentItem.selected ? 'selected' : ''}`}
           onClick={handleClick}
           onContextMenu={handleClick}
         >
-          <NewTalentIcon type={talentItem.name} notAllowed={spent === total} selected={isSelected(talentItem.name)} />
+          <NewTalentIcon type={talentItem.name} notAllowed={spent === total} selected={talentItem.selected} />
         </button>
       </div>
-      <div className={`divider${last ? ' last': ''}${isSelected(talentItem.name) ? ' selected' : ''}`}/>
+      <div className={`divider${last ? ' last': ''}${talentItem.selected ? ' selected' : ''}`}/>
     </div>
   );
 }
