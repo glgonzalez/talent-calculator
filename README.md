@@ -6,7 +6,7 @@ There are only a few simple steps to get this app running
 1. Run `yarn install`
 2. Run `yarn start`
 
-The app should open us a browser window/tab to localhost:8080
+The app should open up a browser window/tab to localhost:8080
 
 ### Server 
 A simple node server runs on port 3000 for the sole purpose of serving the talent data. *(it starts up as part of `yarn start`)*
